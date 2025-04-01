@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator & Health Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        form {
+            margin: 20px auto;
+            width: 350px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #fcfbfb;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            font-size: 18px;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+        }
+        button {
+            padding: 12px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .output {
+            font-size: 22px;
+            font-weight: bold;
+            color: #131212;
+            margin-top: 20px;
+        }
+        .bmi-chart {
+            margin-top: 20px;
+            max-width: 90%;
+        }
+        .bmi-image {
+            margin-top: 20px;
+            width: 200px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>BMI Calculator & Health Prediction</h1>
+
+    <form action="/predict" method="post">
+        <label for="height">Height (cm):</label>
+        <input type="range" id="height" name="height" min="100" max="220" value="170" oninput="updateValue('heightValue', this.value)">
+        <span id="heightValue">170</span> cm
+
+        <label for="weight">Weight (kg):</label>
+        <input type="range" id="weight" name="weight" min="30" max="150" value="70" oninput="updateValue('weightValue', this.value)">
+        <span id="weightValue">70</span> kg
+
+        <button type="submit">Predict</button>
+    </form>
+
+    {% if prediction_text %}
+        <div class="output">
+            <p>{{ prediction_text }}</p>
+            <p>{{ risk_text }}</p>
+            <p>{{ advice_text }}</p>
+        </div>
+        <!-- Show the BMI category image dynamically -->
+        
+    {% endif %}
+
+    <!-- BMI Chart Image -->
+   
+    <script>
+        function updateValue(id, value) {
+            document.getElementById(id).innerText = value;
+        }
+    </script>
+
+</body>
+</html>
+
